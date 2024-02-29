@@ -1,6 +1,7 @@
 import {Select} from './Select.js';
-import {domReady} from '../../../function.js';
-import {cLog, isString} from '../../../miscellaneous.js';
+import {domReady} from '@psys/js-utils/function.js';
+import {cLog} from '@psys/js-utils/misc.js';
+import {isString} from '@psys/js-utils/is.js';
 
 
 export class Selects

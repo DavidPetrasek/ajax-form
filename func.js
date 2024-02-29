@@ -1,4 +1,4 @@
-import { cLog } from "../../miscellaneous";
+import {cLog} from '@psys/js-utils/misc.js';
 
 export async function formData_appendObject (formData, object)
 {

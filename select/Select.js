@@ -1,7 +1,6 @@
-import {cLog, pause} from '../../../miscellaneous.js';
-import {fcePripravArgs} from '../../../function.js';
-import {zamenitPrvky, elCreate} from '../../../elements/func.js';
-//import {rozvinout, svinout} from '../svinout.js';
+import {fcePripravArgs} from '@psys/js-utils/function.js';
+import {cLog} from '@psys/js-utils/misc.js';
+import {elCreate, zamenitPrvky} from "@psys/js-utils/element/util.js";
 
 
 export class Select

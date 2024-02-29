@@ -1,6 +1,7 @@
-import {cLog, isString} from '../../miscellaneous.js';
-import {string_truncate} from '../../string.js';
-import { elCreate } from "../../elements/func.js";
+import {cLog} from '@psys/js-utils/misc.js';
+import {isString} from '@psys/js-utils/is.js';
+import {stringTruncate} from '@psys/js-utils/string.js';
+import {elCreate} from "@psys/js-utils/element/util.js";
 import {disableAllInputs} from "./func.js";
 
 
@@ -110,7 +111,7 @@ export class Form
 			fileNameShow.addEventListener('mouseenter', this.fileNameShowHide);
 			fileNameShow.addEventListener('mouseleave', this.fileNameShowHide);
 			
-			let inHTML = '<span class="file-name">'+string_truncate(file.name, 20)+'</span>';
+			let inHTML = '<span class="file-name">'+stringTruncate(file.name, 20)+'</span>';
 			
 			let selectedFile = elCreate('span', {class: 'selected-file'}, inHTML);
 			selectedFile.appendChild(fileNameShow);

@@ -1,8 +1,8 @@
-//import {vytvorElem, elPreteka, reflow} from './fce.js';
-import {cLog, isString} from '../../miscellaneous.js';
 import {Form} from './Form.js';
-import {domReady} from '../../function.js';
-import {selects} from './Select/init.js';
+import {selects} from './select/init.js';
+import {domReady} from '@psys/js-utils/function.js';
+import {cLog} from '@psys/js-utils/misc.js';
+import {isString} from '@psys/js-utils/is.js';
 
 
 export class Forms
