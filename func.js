@@ -48,3 +48,23 @@ export function disableAllInputs (parent, state)
 		}
 	} );
 }
+
+export function getFileNames(fileInp)
+{                                           //console.log('el', el);		console.log('el.files', el.files);
+	var fileNames_arr = [];
+	var fileNames_str = ''; 
+	var separator = ', ';
+	
+	for (var i = 0; i < fileInp.files.length; ++i)
+	{
+		var fileName = fileInp.files.item(i).name.split('\\').pop();  
+	
+		fileNames_arr.push(fileName);
+		fileNames_str += (i === 0 ? '' : separator) + fileName;
+	}
+	
+//    console.log('fileNames_arr', fileNames_arr);
+//    console.log('fileNames_str', fileNames_str);
+	
+	return {arr: fileNames_arr, str:fileNames_str};
+}

@@ -1,3 +1,5 @@
-import {Forms} from './Forms.js';
+import {AjaxForms} from './AjaxForms.js';
 
-export const forms = new Forms();
+let ajaxForm = new AjaxForms();
+
+export default ajaxForm;
