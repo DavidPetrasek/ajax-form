@@ -142,7 +142,7 @@ export class AjaxForm
 		return new FormData(this.el);
 	}	
 	
-	clearFields ()
+	reset = () =>
 	{		
 		// for (let key in this.filesMultipleDT) 
 		// {
