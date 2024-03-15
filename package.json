@@ -1,5 +1,5 @@
 {
-  "name": "@psys/ajax-form",
+  "name": "@dpsys/ajax-form",
   "version": "1.0.0",
   "description": "Handler for submitting forms via AJAX",
   "main": "index.js",
@@ -9,6 +9,6 @@
   "author": "David Petrásek",
   "license": "ISC",
   "dependencies": {
-    "@psys/js-utils": "file:../../js-utils/js-utils"
+    "@dpsys/js-utils": "^1.0.0"
   }
 }

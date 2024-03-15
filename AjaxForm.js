@@ -1,7 +1,7 @@
-import {cErr, cLog} from '@psys/js-utils/misc.js';
-import {isString} from '@psys/js-utils/is.js';
-import {stringTruncate} from '@psys/js-utils/string.js';
-import {elCreate} from "@psys/js-utils/element/util.js";
+import {cErr, cLog} from '@dpsys/js-utils/misc.js';
+import {isString} from '@dpsys/js-utils/is.js';
+import {stringTruncate} from '@dpsys/js-utils/string.js';
+import {elCreate} from "@dpsys/js-utils/element/util.js";
 // import {disableAllInputs} from "./func.js";
 
 

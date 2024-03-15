@@ -1,6 +1,6 @@
 import {AjaxForm} from './AjaxForm.js';
-import {cLog} from '@psys/js-utils/misc.js';
-import {isString} from '@psys/js-utils/is.js';
+import {cLog} from '@dpsys/js-utils/misc.js';
+import {isString} from '@dpsys/js-utils/is.js';
 
 
 export class AjaxForms

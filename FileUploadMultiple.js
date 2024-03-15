@@ -1,6 +1,6 @@
-import {cLog} from '@psys/js-utils/misc.js';
-import {stringTruncate} from '@psys/js-utils/string.js';
-import {elCreate} from "@psys/js-utils/element/util.js";
+import {cLog} from '@dpsys/js-utils/misc.js';
+import {stringTruncate} from '@dpsys/js-utils/string.js';
+import {elCreate} from "@dpsys/js-utils/element/util.js";
 
 
 // TODO: fileMultiple_container --> filesMultiple_container = []
