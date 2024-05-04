@@ -2,7 +2,6 @@ import {cErr, cLog} from '@dpsys/js-utils/misc.js';
 import {isString} from '@dpsys/js-utils/is.js';
 import {stringTruncate} from '@dpsys/js-utils/string.js';
 import {elCreate} from "@dpsys/js-utils/element/util.js";
-// import {disableAllInputs} from "./func.js";
 
 
 export class AjaxForm
