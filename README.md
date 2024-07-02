@@ -8,7 +8,7 @@ Submit any issues here: https://github.com/DavidPetrasek/ajax-form/issues
 This example uses Axios. Use different ajax call implementation if needed.
 
 ### Given form:
-```
+``` html
 <form name="my_form" method="post">
 
     <input type="text" name="form[something]" required="required">
@@ -20,7 +20,7 @@ This example uses Axios. Use different ajax call implementation if needed.
 ###
 ###
 ### Then in js:
-```
+``` javascript
 import ajaxForm from '@dpsys/ajax-form';
 import axios from 'axios';
 
