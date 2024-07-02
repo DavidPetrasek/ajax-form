@@ -9,6 +9,6 @@
   "author": "David Petrásek",
   "license": "ISC",
   "dependencies": {
-    "@dpsys/js-utils": "^1.0.10"
+    "@dpsys/js-utils": "^1.0.11"
   }
 }

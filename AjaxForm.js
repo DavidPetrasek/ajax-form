@@ -13,7 +13,7 @@ export class AjaxForm
 		this.el = form;								//cLog('Form (constructor) :: form', form);	
 		
 		// this.disableHiddenFields();
-		this.el.addEventListener('submit', this.submit);
+		this.el.addEventListener('submit', this.#submit);
 		// this.mutationObserver_hiddenFields = new MutationObserver(this.callback_mutationObserver_hiddenFields);
 		// this.mutationObserver_hiddenFields.observe(this.el, 
 		// {
@@ -24,13 +24,13 @@ export class AjaxForm
   		// });
 	}
 
-	submit = async (e) =>
+	#submit = async (e) =>
 	{
 		e.preventDefault();	
-		if (!this.isValid()) {return;}	
+		if (!this.#isValid()) {return;}	
 		// await this.allowFields();
-		var formData = this.getFormData();			
-		await this.removeErrors();
+		var formData = this.#getFormData();			
+		await this.#removeErrors();
 		// this.restoreFields();	
 
 		this.submitCallback(this, formData);
@@ -62,7 +62,7 @@ export class AjaxForm
 	// 	});
 	// }	
 	
-	isValid ()
+	#isValid ()
 	{		
 		if ( !this.el.checkValidity() ) {this.el.reportValidity(); return false;}
 	
@@ -71,7 +71,7 @@ export class AjaxForm
 	
 	async showErrors (errors)
 	{								
-		await this.removeErrors();	
+		await this.#removeErrors();	
 		
 		errors.forEach( (err) =>
 		{			
@@ -89,7 +89,7 @@ export class AjaxForm
 		});
 	}	
 	
-	async removeErrors ()
+	async #removeErrors ()
 	{
 		let errs = [...this.el.querySelectorAll('.error')];
 		await Promise.all(errs.map(async (ch) => ch.remove()));
@@ -106,13 +106,13 @@ export class AjaxForm
 	// 		{
 	// 			i.removeAttribute('disabled');
 	// 			i.setAttribute('data-form-before-sent-disabled', '');
+	
+		// 		if (i.hasAttribute('required')) 
+		// 		{
+		// 			i.removeAttribute('required');
+		// 			i.setAttribute('data-form-before-sent-required', '');
+		// 		}
 	// 		}	
-			
-	// 		if (i.hasAttribute('required')) 
-	// 		{
-	// 			i.removeAttribute('required');
-	// 			i.setAttribute('data-form-before-sent-required', '');
-	// 		}
 	// 	}));
 	// }
 	
@@ -136,7 +136,7 @@ export class AjaxForm
 	// }
 	
 	
-	getFormData()
+	#getFormData()
 	{					
 		return new FormData(this.el);
 	}	

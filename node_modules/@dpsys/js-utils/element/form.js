@@ -41,7 +41,7 @@ export function vstupNastavitHodnotu (name, hod, viceHodIndex = null, rod = docu
 	vst.value = hod;
 }
 
-export function form_setDisabledStateAllInputs (parent, state)
+export function formSetDisabledStateAllInputs (parent, state)
 {
 	parent.querySelectorAll('input, select, canvas').forEach( (i) =>
 	{																					
