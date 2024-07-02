@@ -1,3 +1,5 @@
+Install: `npm i @dpsys/ajax-form`
+Submit any issues here: https://github.com/DavidPetrasek/ajax-form/issues
 
 # Usage
 This example uses Axios. Use different ajax call implementation if needed.
