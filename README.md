@@ -2,19 +2,19 @@
 # Usage
 This example uses Axios. Use different ajax call implementation if needed.
 
-Given form:
+### Given form:
 ```
 <form name="my_form" method="post">
 
     <input type="text" name="form[something]" required="required">
 	            
-    <button type="submit" name="form[submit]" class="vychozi">Submit</button>
+    <button type="submit" name="form[submit]">Submit</button>
     
 </form>
 ```
 ###
 ###
-Then in js:
+### Then in js:
 ```
 import ajaxForm from '@dpsys/ajax-form';
 import axios from 'axios';
