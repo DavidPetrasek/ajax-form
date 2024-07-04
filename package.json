@@ -1,6 +1,6 @@
 {
   "name": "@dpsys/ajax-form",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Handler for submitting forms via AJAX",
   "main": "index.js",
   "scripts": {
