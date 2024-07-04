@@ -44,3 +44,9 @@ ajaxForm.get('my_form').submitCallback = (formInstance, formData) =>
 	});
 };
 ```
+
+###
+###
+## Methods
+### get(form)
+form - existing Node or string (CSS selector or value of the name attribute)

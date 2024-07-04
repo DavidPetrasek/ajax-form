@@ -27,7 +27,7 @@ export class AjaxForms
 	}
 	
 	/**
-	 * @param {(Node|string)} form - Node | string: querySelector or content of name attribute
+	 * @param {(Node|string)} form - Node | string: CSS selector or value of name attribute
 	 */	
 	get (form)
 	{
