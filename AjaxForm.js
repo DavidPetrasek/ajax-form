@@ -69,6 +69,11 @@ export class AjaxForm
 		return true;
 	}	
 	
+	/**
+	 * Inserts a span element after the input field, containing the error message.
+	 * 
+	 * @param Array errors - contaning objects of structure {field_id: String, message: String}
+	 */
 	async showErrors (errors)
 	{								
 		await this.#removeErrors();	

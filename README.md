@@ -49,4 +49,9 @@ ajaxForm.get('my_form').submitCallback = (formInstance, formData) =>
 ###
 ## Methods
 ### get(form)
-form - existing Node or string (CSS selector or value of the name attribute)
+`form` - existing Node or string (CSS selector or value of the name attribute)
+
+### showErrors(errors)
+Inserts a span element after the input field, containing the error message.
+
+`errors` - Array containing objects of structure: {field_id: String, message: String}
