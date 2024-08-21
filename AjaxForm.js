@@ -29,7 +29,8 @@ export class AjaxForm
 		e.preventDefault();	
 		if (!this.#isValid()) {return;}	
 		// await this.allowFields();
-		var formData = this.#getFormData();			
+		var formData = this.#getFormData();	
+		formData.append(e.submitter.name, true);		
 		await this.#removeErrors();
 		// this.restoreFields();	
 
