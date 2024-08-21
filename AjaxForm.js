@@ -30,7 +30,7 @@ export class AjaxForm
 		if (!this.#isValid()) {return;}	
 		// await this.allowFields();
 		var formData = this.#getFormData();	
-		formData.append(e.submitter.name, true);		
+		formData.append(e.submitter.name, true);	// Know which button was used to submit	
 		await this.#removeErrors();
 		// this.restoreFields();	
 
