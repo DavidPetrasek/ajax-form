@@ -8,6 +8,10 @@
   },
   "author": "David Petrásek",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidPetrasek/ajax-form"
+  },
   "dependencies": {
     "@dpsys/js-utils": "^1.0.11"
   }
