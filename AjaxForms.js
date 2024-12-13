@@ -9,7 +9,7 @@ export class AjaxForms
 
 	// initializeForms = async () =>
 	// {		
-	// 	let uninitializedForms = [...document.querySelectorAll('form:not([data-form-initialized])')];
+	// 	let uninitializedForms = [...document.querySelectorAll('form:not([data-ajax-form-initialized])')];
 	// 	await Promise.all(uninitializedForms.map(async (el) => 
 	// 	{												
 	// 		await this.#initializeForm(el);
@@ -21,7 +21,7 @@ export class AjaxForms
 	{		
 		let newInstance = new AjaxForm(el);
 		this.#instances.push(newInstance);
-		el.dataset.formInitialized = '';
+		el.dataset.ajaxFormInitialized = '';
 
 		return newInstance;
 	}
