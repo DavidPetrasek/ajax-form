@@ -21,7 +21,7 @@ export class AjaxForms
 	{		
 		let newInstance = new AjaxForm(el);
 		this.#instances.push(newInstance);
-		el.dataset.ajaxFormInitialized = '';
+		el.dataset.ajaxFormInitialized = '';  //TODO: tento data atribut asi není třeba -> stačí prohledat existující instance? (to už se děje níže ve fci get?)
 
 		return newInstance;
 	}
