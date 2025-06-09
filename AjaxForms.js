@@ -41,7 +41,7 @@ export class AjaxForms
 				formEl = document.querySelector('form[name="'+form+'"]');
 			}
 			
-			if (!formEl) {console.error('Form does not exist.'); return null;}
+			if (!formEl) {return null;}
 		}
 		else
 		{
