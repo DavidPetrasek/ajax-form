@@ -163,20 +163,20 @@ export class AjaxForm
 		this.el.reset();				
 
         // Clear file inputs
-		[...this.el.elements].forEach( (inp) => 
-		{	
-            if (inp.type === 'file') 
-            {
-                if (inp.multiple) 
-                {
-                    inp.files = new DataTransfer().files; cLog(inp.files);
-                } 
-                else 
-                {
-                    inp.value = '';
-                }
-            }
-		});
+		// [...this.el.elements].forEach( (inp) => 
+		// {	
+        //     if (inp.type === 'file') 
+        //     {
+        //         if (inp.multiple) 
+        //         {
+        //             inp.files = new DataTransfer().files; cLog(inp.files);
+        //         } 
+        //         else 
+        //         {
+        //             inp.value = '';
+        //         }
+        //     }
+		// });
 	}
 }
 
