@@ -161,20 +161,22 @@ export class AjaxForm
 //		});
 		
 		this.el.reset();				
-//		[...this.el.elements].forEach( (inp) => 
-//		{					
-//			if (inp.name.includes('_token')) {return;}	
-//			
-//			else if ( inp.type === 'file'  &&  inp.hasAttribute('multiple') )
-//			{
-//				inp.files = this.dataTransfer.files;	cLog('inp.files', inp.files, this.clearFields);
-//			}
-//			
-//			else
-//			{
-//				inp.value = '';	
-//			}
-//		});
+
+        // Clear file inputs
+		[...this.el.elements].forEach( (inp) => 
+		{	
+            if (inp.type === 'file') 
+            {
+                if (inp.multiple) 
+                {
+                    inp.files = new DataTransfer().files; cLog(inp.files);
+                } 
+                else 
+                {
+                    inp.value = '';
+                }
+            }
+		});
 	}
 }
 
