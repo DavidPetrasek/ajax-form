@@ -1,21 +1,10 @@
 import {AjaxForm} from './AjaxForm.js';
-import {cLog} from '@dpsys/js-utils/misc.js';
 import {isString} from '@dpsys/js-utils/is.js';
 
 
 export class AjaxForms
 {		
 	#instances = [];
-
-	// initializeForms = async () =>
-	// {		
-	// 	let uninitializedForms = [...document.querySelectorAll('form:not([data-ajax-form-initialized])')];
-	// 	await Promise.all(uninitializedForms.map(async (el) => 
-	// 	{												
-	// 		await this.#initializeForm(el);
-	// 	}));
-//		cLog ('this.instances', this.instances, this.initializeForms);
-	// }
 
 	#initializeForm = (el) =>
 	{		
@@ -31,7 +20,7 @@ export class AjaxForms
 	 */	
 	get (form)
 	{
-		var formEl;			//cLog ('form', form, this.getForm);
+		var formEl;
 		
 		if ( isString(form) ) 
 		{
