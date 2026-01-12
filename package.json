@@ -1,7 +1,7 @@
 {
   "name": "@dpsys/ajax-form",
   "version": "1.1.0",
-  "description": "Handler for submitting forms via AJAX",
+  "description": "A lightweight handler for submitting HTML forms via AJAX.",
   "author": "David Petrásek",
   "license": "ISC",
   "repository": {
@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@vitest/ui": "^4.0.16",
+    "jsdom": "^27.4.0",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
     "vitest": "^4.0.16"

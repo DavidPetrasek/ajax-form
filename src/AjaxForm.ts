@@ -36,8 +36,7 @@ export class AjaxForm
     {
         if (typeof clb !== 'function')
         {
-            cErr('AjaxForm :: submitCallback is not a function', clb, this.setSubmitCallback);
-            return;
+            throw new Error('AjaxForm :: submitCallback is not a function');
         }
 
         this.#submitCallback = clb;
@@ -67,7 +66,7 @@ export class AjaxForm
 				return;
 			}
 					
-			let el_err = elCreate ('span', {class: 'ajax_form_error'}, err.message);													
+			let el_err = elCreate ('span', {class: 'error'}, err.message);													
 			field.insertAdjacentElement('afterend', el_err);
 
 			field.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
@@ -76,7 +75,7 @@ export class AjaxForm
 	
 	async #removeErrors(): Promise<void>
 	{
-		let errs = [...this.#formEl.querySelectorAll('.ajax_form_error')];
+		let errs = [...this.#formEl.querySelectorAll('.error')];
 		await Promise.all(errs.map(async (ch) => ch.remove()));
 	}	
 	

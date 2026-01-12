@@ -1,4 +1,3 @@
-import { cErr } from '@dpsys/js-utils/misc';
 import {AjaxForm} from './AjaxForm.js';
 import {isString} from '@dpsys/js-utils/is';
 
@@ -10,24 +9,25 @@ export class Manager
      * 
 	 * @param formOrSelector - Form element, CSS selector or name of the form
 	 */	
-	get(formOrSelector:  HTMLFormElement|string): AjaxForm|null
+	get(formOrSelector:  HTMLFormElement|string): AjaxForm
 	{
-		let formEl: HTMLFormElement|null;
+		let formEl: HTMLFormElement|null = null;
 		
 		if (isString(formOrSelector)) 
 		{
+            // Try CSS selector first
 			formEl = document.querySelector(formOrSelector as string);
 			if (!formEl)
 			{
+                // Try form name next
 				formEl = document.querySelector('form[name="'+formOrSelector+'"]');
 			}
         }
-        else {formEl = formOrSelector as HTMLFormElement;}
+        else if (formOrSelector instanceof HTMLFormElement) {formEl = formOrSelector;}
 		
 		if (!formEl) 
         {
-            cErr('AjaxForm :: Form element not found', formOrSelector, this.get); 
-            return null;
+            throw new Error('AjaxForm :: Form element not found');
         }
 
 		return new AjaxForm(formEl);
