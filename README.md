@@ -17,7 +17,7 @@ This example uses Axios. Use different ajax call implementation if needed.
 ```
 ###
 ###
-### Then in js:
+### Then:
 ``` javascript
 import ajaxForm from '@dpsys/ajax-form';
 import axios from 'axios';
