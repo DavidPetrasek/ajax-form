@@ -2,8 +2,7 @@ Install: `npm i @dpsys/ajax-form`
 
 ###
 ###
-# Usage
-This example uses Axios. Use different ajax call implementation if needed.
+# Example Usage
 
 ### Given form:
 ``` html
@@ -17,12 +16,13 @@ This example uses Axios. Use different ajax call implementation if needed.
 ```
 ###
 ###
-### Then:
+### Then in JS:
+This example uses Axios. Use different ajax call implementation if needed.
 ``` javascript
 import ajaxForm from '@dpsys/ajax-form';
 import axios from 'axios';
 
-ajaxForm.get('my_form').submitCallback = (formInstance, formData) =>
+ajaxForm('my_form').setSubmitCallback( (axForm, formData) =>
 {
 	formData.append('some_value', 54685);
 
@@ -31,24 +31,24 @@ ajaxForm.get('my_form').submitCallback = (formInstance, formData) =>
 	{							
 		if (response.data.formErrors)
 		{				
-			formInstance.showErrors(response.data.formErrors);
+			axForm.showErrors(response.data.formErrors);
 		}			
 		else if (response.data.success)
 		{
 			...
 
-			formInstance.reset();
+			axForm.reset();
 		}
 	});
-};
+});
 ```
 
 ###
 ###
-## Methods
-### get(form)
-`form` - existing Node or string (CSS selector or value of the name attribute)
+### ajaxForm(form)
+`form` - Form element, CSS selector or name of the form
 
+## Methods
 ### showErrors(errors)
 Inserts a span element after the input field, containing the error message.
 

@@ -1,36 +1,56 @@
 import {cErr} from '@dpsys/js-utils/misc';
 import {elCreate} from "@dpsys/js-utils/el";
+import { isEmpty } from '@dpsys/js-utils/is';
 
 
 export class AjaxForm
 {				
-    el: HTMLFormElement;
-    submitCallback: (formInstance: AjaxForm, formData: FormData) => void = () => {};
+    #formEl: HTMLFormElement;
+    #submitCallback: (axForm: AjaxForm, formData: FormData) => void = () => {};
     
 	constructor(form: HTMLFormElement)
 	{
-		this.el = form;
-		this.el.addEventListener('submit', this.#submit);
+		this.#formEl = form;
+		this.#formEl.addEventListener('submit', this.#submit);
 	}
 
-	#submit = async (e: Event) =>
+	#submit = async (e: SubmitEvent) =>
 	{
-		e.preventDefault();	
+		e.preventDefault();	                //cLog('AjaxForm :: Submit intercepted', this.#submit);
 		if (!this.#isValid()) {return;}
-		var formData = this.#getFormData();	
-		if (e.submitter) {formData.append(e.submitter.name, true);}	// Which button was used to submit	
+		var formData = this.#getFormData();	//cLog('AjaxForm :: Form data collected', formData);
+		if (e.submitter && !isEmpty((e.submitter as HTMLButtonElement).name)) {formData.append((e.submitter as HTMLButtonElement).name, 'true');}	// Which button was used to submit	
 		await this.#removeErrors();	
 
-		this.submitCallback(this, formData);
+		this.#submitCallback(this, formData);
 	}
 	
 	#isValid ()
-	{		
-		if ( !this.el.checkValidity() ) {this.el.reportValidity(); return false;}
+	{
+		if ( !this.#formEl.checkValidity() ) {this.#formEl.reportValidity(); return false;}
 	
 		return true;
-	}	
-	
+	}
+
+    setSubmitCallback(clb: (axForm: AjaxForm, formData: FormData) => void)
+    {
+        if (typeof clb !== 'function')
+        {
+            cErr('AjaxForm :: submitCallback is not a function', clb, this.setSubmitCallback);
+            return;
+        }
+
+        this.#submitCallback = clb;
+    }
+
+    /**
+     * @deprecated submitCallback property is deprecated and will be removed in the next major release. Use setSubmitCallback() method instead.
+     */
+    set submitCallback(clb: (axForm: AjaxForm, formData: FormData) => void)
+    {
+        this.setSubmitCallback(clb);
+    }
+    
 	/**
 	 * Inserts a span element after the input field, containing the error message.
 	 */
@@ -40,7 +60,7 @@ export class AjaxForm
 		
 		errors.forEach( (err) =>
 		{			
-			let field = this.el.querySelector('[id="'+err.field_id+'"]');	
+			let field = this.#formEl.querySelector('[id="'+err.field_id+'"]');	
 			if (!field) 
 			{
 				cErr('AjaxForm :: Field ID not found:', err.field_id, this.showErrors);
@@ -56,18 +76,18 @@ export class AjaxForm
 	
 	async #removeErrors(): Promise<void>
 	{
-		let errs = [...this.el.querySelectorAll('.ajax_form_error')];
+		let errs = [...this.#formEl.querySelectorAll('.ajax_form_error')];
 		await Promise.all(errs.map(async (ch) => ch.remove()));
 	}	
 	
 	#getFormData(): FormData
 	{					
-		return new FormData(this.el);
+		return new FormData(this.#formEl);
 	}	
 	
 	reset = (): void =>
 	{
-		this.el.reset();
+		this.#formEl.reset();
 	}
 }
 
