@@ -1,6 +1,7 @@
 import {cErr} from '@dpsys/js-utils/misc.js';
 import {isString} from '@dpsys/js-utils/is.js';
 import {elCreate} from "@dpsys/js-utils/element/util.js";
+import { isEmpty } from '@dpsys/js-utils/is';
 
 
 export class AjaxForm
@@ -18,7 +19,7 @@ export class AjaxForm
 		e.preventDefault();	
 		if (!this.#isValid()) {return;}	
 		var formData = this.#getFormData();	
-		if (e.submitter) {formData.append(e.submitter.name, true);}	// Know which button was used to submit	
+		if (e.submitter && !isEmpty(e.submitter.name)) {formData.append(e.submitter.name, true);}	// Know which button was used to submit	
 		await this.#removeErrors();	
 
 		this.submitCallback(this, formData);
