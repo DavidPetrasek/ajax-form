@@ -9,9 +9,9 @@ This example uses Axios. Use different ajax call implementation if needed.
 ``` html
 <form name="my_form" method="post">
 
-    <input type="text" name="form[something]" required="required">
+    <input type="text" name="my_form[something]" required="required">
 	            
-    <button type="submit" name="form[submit]">Submit</button>
+    <button type="submit" name="my_form[submit]">Submit</button>
     
 </form>
 ```
