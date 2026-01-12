@@ -4,7 +4,7 @@
 
 # Ajax Form
 
-A lightweight handler for submitting HTML forms via AJAX. 
+A lightweight handler for submitting HTML forms via AJAX.
 
 Supports CommonJS (CJS) and ES Modules (ESM).
 
@@ -63,33 +63,36 @@ ajaxForm('my_form').setSubmitCallback( (axForm, formData) =>
 ###
 ## API Reference
 
+
 ### ajaxForm(form)
 
 Creates and returns an AjaxForm instance for handling the specified form.
 
-**Parameters:**
+##### Parameters:
 - `form`: A form element (HTMLElement), CSS selector (string), or form name (string).
 
-**Returns:** An AjaxForm instance.
+##### Returns: An AjaxForm instance.
 
-**Throws:** Error if the form is not found or invalid.
+##### Throws: Error if the form is not found or invalid.
+___
 
 ### AjaxForm Methods
-
+___
 #### setSubmitCallback(callback)
 
 Sets a callback function to handle form submission.
 
-**Parameters:**
+##### Parameters:
 - `callback(axForm, formData)`: Function called on submit. `axForm` is the instance, `formData` is a FormData object.
-
+___
 #### showErrors(errors)
 
 Displays error messages by inserting `<span>` elements after input fields.
 
-**Parameters:**
+##### Parameters:
 - `errors`: Array of objects with `{field_id: string, message: string}`.
-
+___
 #### reset()
 
 Resets the form to its default values.
+___

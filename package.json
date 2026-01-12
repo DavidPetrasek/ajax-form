@@ -1,7 +1,13 @@
 {
   "name": "@dpsys/ajax-form",
   "version": "1.1.0",
-  "description": "A lightweight handler for submitting HTML forms via AJAX.",
+  "description": "A lightweight handler for submitting HTML forms via AJAX",
+  "keywords": [
+    "form-submitter",
+    "form-handler",
+    "form-errors",
+    "ajax"
+  ],
   "author": "David Petrásek",
   "license": "ISC",
   "repository": {
