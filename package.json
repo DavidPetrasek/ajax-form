@@ -1,6 +1,6 @@
 {
   "name": "@dpsys/ajax-form",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A lightweight handler for submitting HTML forms via AJAX",
   "keywords": [
     "form-submitter",
