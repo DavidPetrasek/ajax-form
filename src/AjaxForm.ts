@@ -1,4 +1,4 @@
-import {cErr} from '@dpsys/js-utils/misc';
+import {cErr, cLog} from '@dpsys/js-utils/misc';
 import {elCreate} from "@dpsys/js-utils/el";
 import { isEmpty } from '@dpsys/js-utils/is';
 
@@ -10,8 +10,9 @@ export class AjaxForm
     
 	constructor(form: HTMLFormElement)
 	{
-		this.#formEl = form;
+		this.#formEl = form;                 //cLog('AjaxForm :: Initialized', this.#formEl);
 		this.#formEl.addEventListener('submit', this.#submit);
+        this.#formEl.ajaxFormInstance = this; // Prevent multiple instances/eventListeners on the same form
 	}
 
 	#submit = async (e: SubmitEvent) =>

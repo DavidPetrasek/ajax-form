@@ -30,7 +30,14 @@ export class Manager
             throw new Error('AjaxForm :: Form element not found');
         }
 
-		return new AjaxForm(formEl);
+        if (formEl.ajaxFormInstance instanceof AjaxForm) 
+        {
+            return formEl.ajaxFormInstance;
+        }
+        else
+        {
+            return new AjaxForm(formEl);
+        }
 	}
 }
 
