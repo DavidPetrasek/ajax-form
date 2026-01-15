@@ -32,25 +32,23 @@ npm i @dpsys/ajax-form
 ###
 ###
 ### Then in JS:
-This example uses Axios. Use different ajax call implementation if needed.
+This example uses Axios. Feel free to use any other AJAX implementation.
 ``` javascript
 import ajaxForm from '@dpsys/ajax-form';
 import axios from 'axios';
 
 ajaxForm('my_form').setSubmitCallback( (axForm, formData) =>
 {
-	formData.append('some_value', 54685);
-
 	axios.post('/some-route', formData)
-	.then( async (response) => 
+	.then( (resp) => 
 	{							
-		if (response.data.formErrors)
+		if (resp.data.formErrors)
 		{				
-			axForm.showErrors(response.data.formErrors);
+			axForm.showErrors(resp.data.formErrors);
 		}			
-		else if (response.data.success)
+		else if (resp.data.success)
 		{
-			...
+			// Do something...
 
 			axForm.reset();
 		}
