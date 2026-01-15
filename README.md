@@ -61,7 +61,7 @@ ajaxForm('my_form').setSubmitCallback( (axForm, formData) =>
 
 ###
 ###
-## API Reference
+## Reference
 
 
 ### ajaxForm(form)

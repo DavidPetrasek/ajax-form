@@ -1,15 +1,15 @@
-import {Manager} from './Manager';
-import {AjaxForm} from './AjaxForm';
+import { AjaxForm } from './AjaxForm';
+import { getAjaxForm } from './manager';
 
-const manager = new Manager();
-
-const ajaxForm = (formOrSelector: HTMLFormElement | string): AjaxForm | null => {
-    return manager.get(formOrSelector);
+type AjaxFormCallable = ((formOrSelector: HTMLFormElement | string) => AjaxForm | null) & 
+{
+  /** @deprecated Use ajaxForm(form) instead: ajaxForm.get(form) */
+  get: (formOrSelector: HTMLFormElement | string) => AjaxForm | null;
 };
 
-/**
-  * @deprecated Use ajaxForm(form) instead ajaxForm.get(form)
-  */
-ajaxForm.get = manager.get.bind(manager);
+const ajaxForm: AjaxFormCallable = (formOrSelector: HTMLFormElement | string) => getAjaxForm(formOrSelector);
+
+// expose deprecated alias that calls the same function
+ajaxForm.get = ajaxForm;
 
 export default ajaxForm;
