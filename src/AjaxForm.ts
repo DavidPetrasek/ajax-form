@@ -83,7 +83,12 @@ export class AjaxForm
 	#getFormData(): FormData
 	{					
 		return new FormData(this.#formEl);
-	}	
+	}
+
+    getForm(): HTMLFormElement
+	{					
+		return this.#formEl;
+	}
 	
 	reset = (): void =>
 	{

@@ -90,6 +90,10 @@ Displays error messages by inserting `<span>` elements after input fields.
 ##### Parameters:
 - `errors`: Array of objects with `{field_id: string, message: string}`.
 ___
+#### getForm()
+
+Returns the form element.
+___
 #### reset()
 
 Resets the form to its default values.
