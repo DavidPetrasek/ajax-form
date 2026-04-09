@@ -1,6 +1,6 @@
 {
   "name": "@dpsys/ajax-form",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "A lightweight handler for submitting HTML forms via AJAX",
   "keywords": [
     "form-submitter",
@@ -12,7 +12,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DavidPetrasek/ajax-form"
+    "url": "git+https://github.com/DavidPetrasek/ajax-form.git"
   },
   "bugs": "https://github.com/DavidPetrasek/ajax-form/issues",
   "exports": {
