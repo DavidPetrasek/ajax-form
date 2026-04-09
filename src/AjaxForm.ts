@@ -94,6 +94,11 @@ export class AjaxForm
 	{
 		this.#formEl.reset();
 	}
+
+	resetFileInputs = (): void =>
+	{
+		this.#formEl.querySelectorAll('input[type="file"]').forEach((inp) => {(inp as HTMLInputElement).value = '';});
+	}
 }
 
 

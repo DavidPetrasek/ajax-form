@@ -70,3 +70,54 @@ describe('axForm integration (no mocks)', () =>
         expect(ajaxForm.getForm()).toBe(formEl);
     });
 });
+
+describe('AjaxForm.resetFileInputs', () => {
+  it('is a function on the AjaxForm instance', () => {
+    const form = document.createElement('form') ;
+    const ajaxForm = new AjaxForm(form);
+
+    expect(typeof ajaxForm.resetFileInputs).toBe('function');
+  });
+
+    it('clears all file input values in the form', () => 
+    {
+        const form = document.createElement('form');
+
+        const singleFileInput = document.createElement('input');
+        singleFileInput.type = 'file';
+        Object.defineProperty(singleFileInput, 'value', {
+            configurable: true,
+            writable: true,
+            value: 'C:\\fakepath\\filename.txt',
+        });
+
+        const multipleFileInput = document.createElement('input');
+        multipleFileInput.type = 'file';
+        multipleFileInput.multiple = true;
+        Object.defineProperty(multipleFileInput, 'value', {
+            configurable: true,
+            writable: true,
+            value: 'C:\\fakepath\\a.txt, C:\\fakepath\\b.txt',
+        });
+
+        form.append(singleFileInput, multipleFileInput);
+
+        const ajaxForm = new AjaxForm(form);
+
+        expect(singleFileInput.value).not.toBe('');
+        expect(multipleFileInput.value).not.toBe('');
+
+        ajaxForm.resetFileInputs();
+
+        expect(singleFileInput.value).toBe('');
+        expect(multipleFileInput.value).toBe('');
+    });
+
+  it('does not throw when the form has no file inputs', () => {
+    const form = document.createElement('form') ;
+    form.append(document.createElement('input'));
+    const ajaxForm = new AjaxForm(form);
+
+    expect(() => ajaxForm.resetFileInputs()).not.toThrow();
+  });
+});

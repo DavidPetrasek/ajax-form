@@ -98,3 +98,7 @@ ___
 
 Resets the form to its default values.
 ___
+#### resetFileInputs()
+
+Resets only all file inputs to their default values.
+___
