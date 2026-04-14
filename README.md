@@ -85,7 +85,7 @@ Sets a callback function to handle form submission.
 ___
 #### showErrors(errors)
 
-Displays error messages by inserting `<span>` elements after input fields.
+Displays error messages by inserting `<span class="error">` elements after matching input fields, or at the beginning of the form to show form-level errors.
 
 ##### Parameters:
 - `errors`: Array of objects with `{field_id: string, message: string}`.

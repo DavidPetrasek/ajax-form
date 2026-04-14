@@ -52,7 +52,7 @@ export class AjaxForm
     }
     
 	/**
-	 * Inserts a span element containing the error message after the input field or at the beginning of the form if the error is form specific.
+	 * Inserts a span element containing the error message after the input field, or at the beginning of the form to show form-level errors.
 	 */
 	async showErrors (errors: {field_id: string, message: string}[]): Promise<void>
 	{								
