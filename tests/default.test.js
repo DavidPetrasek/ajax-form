@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import axForm from '../src/index';
 import { AjaxForm } from '../src/AjaxForm';
 
@@ -119,5 +119,49 @@ describe('AjaxForm.resetFileInputs', () => {
     const ajaxForm = new AjaxForm(form);
 
     expect(() => ajaxForm.resetFileInputs()).not.toThrow();
+  });
+});
+
+describe('AjaxForm.showErrors', () => {
+  it('inserts an error span after a matching form field and removes previous errors', async () => {
+    const form = document.createElement('form');
+    const input = document.createElement('input');
+    input.id = 'username';
+    input.scrollIntoView = vi.fn();
+
+    const oldError = document.createElement('span');
+    oldError.className = 'error';
+    oldError.textContent = 'old error';
+    form.append(oldError, input);
+    document.body.appendChild(form);
+
+    const ajaxForm = new AjaxForm(form);
+    await ajaxForm.showErrors([{ field_id: 'username', message: 'Username required' }]);
+
+    const errors = form.querySelectorAll('span.error');
+    expect(errors).toHaveLength(1);
+    expect(errors[0].textContent).toBe('Username required');
+    expect(errors[0].previousElementSibling).toBe(input);
+    expect(input.scrollIntoView).toHaveBeenCalled();
+
+    document.body.removeChild(form);
+  });
+
+  it('inserts a form-level error span at the beginning of the form when the target is the form element', async () => {
+    const form = document.createElement('form');
+    form.id = 'loginForm';
+    form.scrollIntoView = vi.fn();
+    document.body.appendChild(form);
+
+    const ajaxForm = new AjaxForm(form);
+    await ajaxForm.showErrors([{ field_id: 'loginForm', message: 'Please fix the errors below' }]);
+
+    const error = form.querySelector('span.error');
+    expect(error).toBeTruthy();
+    expect(form.firstElementChild).toBe(error);
+    expect(error?.textContent).toBe('Please fix the errors below');
+    expect(form.scrollIntoView).toHaveBeenCalled();
+
+    document.body.removeChild(form);
   });
 });

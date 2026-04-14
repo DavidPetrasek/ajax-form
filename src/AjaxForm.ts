@@ -52,7 +52,7 @@ export class AjaxForm
     }
     
 	/**
-	 * Inserts a span element after the input field, containing the error message.
+	 * Inserts a span element containing the error message after the input field or at the beginning of the form if the error is form specific.
 	 */
 	async showErrors (errors: {field_id: string, message: string}[]): Promise<void>
 	{								
@@ -60,15 +60,23 @@ export class AjaxForm
 		
 		errors.forEach( (err) =>
 		{			
-			let field = this.#formEl.querySelector('[id="'+err.field_id+'"]');	
+			let field = document.querySelector('[id="'+err.field_id+'"]');	
 			if (!field) 
 			{
-				cErr('AjaxForm :: Field ID not found:', err.field_id, this.showErrors);
+				cErr('AjaxForm :: Field/Form ID not found:', err.field_id, this.showErrors);
 				return;
 			}
 					
 			let el_err = elCreate ('span', {class: 'error'}, err.message);													
-			field.insertAdjacentElement('afterend', el_err);
+			
+            if (field.tagName === 'FORM')
+            {
+                field.insertAdjacentElement('afterbegin', el_err);
+            }
+            else
+            {
+                field.insertAdjacentElement('afterend', el_err);
+            }
 
 			field.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
 		});
