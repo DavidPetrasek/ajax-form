@@ -52,18 +52,18 @@ export class AjaxForm
     }
     
 	/**
-	 * Inserts a span element containing the error message after the input field, or at the beginning of the form to show form-level errors.
+	 * Inserts a span element containing the error message after the input field, or at the beginning of the form to show form-level errors (field_id is the id of the form).
 	 */
-	async showErrors (errors: {field_form_id: string, message: string}[]): Promise<void>
+	async showErrors (errors: {field_id: string, message: string}[]): Promise<void>
 	{								
 		await this.#removeErrors();	
 		
 		errors.forEach( (err) =>
 		{			
-			let field_form = document.querySelector('[id="'+err.field_form_id+'"]');	
+			let field_form = document.querySelector('[id="'+err.field_id+'"]');	
 			if (!field_form) 
 			{
-				cErr('AjaxForm :: Field/Form ID not found:', err.field_form_id, this.showErrors);
+				cErr('AjaxForm :: Field/Form ID not found:', err.field_id, this.showErrors);
 				return;
 			}
 					
