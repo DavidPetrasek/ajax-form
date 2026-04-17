@@ -88,7 +88,7 @@ ___
 Displays error messages by inserting `<span class="error">` elements after matching input fields, or at the beginning of the form to show form-level errors.
 
 ##### Parameters:
-- `errors`: Array of objects with `{field_id: string, message: string}`. If the `field_id` is same as `id` of the form, form-level error is shown.
+- `errors`: Array of objects with `{field_id: string, message: string}`. If the `field_id` is same as `id` or `name` of the form, form-level error is shown.
 ___
 #### getForm()
 

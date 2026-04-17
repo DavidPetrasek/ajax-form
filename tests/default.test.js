@@ -147,6 +147,58 @@ describe('AjaxForm.showErrors', () => {
     document.body.removeChild(form);
   });
 
+  it('inserts an error span after multiple matching fields and ignores missing fields', async () => {
+    const form = document.createElement('form');
+    const firstInput = document.createElement('input');
+    firstInput.id = 'username';
+    firstInput.scrollIntoView = vi.fn();
+
+    const secondInput = document.createElement('input');
+    secondInput.id = 'email';
+    secondInput.scrollIntoView = vi.fn();
+
+    form.append(firstInput, secondInput);
+    document.body.appendChild(form);
+
+    const ajaxForm = new AjaxForm(form);
+    await expect(
+      ajaxForm.showErrors([
+        { field_id: 'username', message: 'Username required' },
+        { field_id: 'missing', message: 'This field does not exist' },
+        { field_id: 'email', message: 'Email required' },
+      ])
+    ).resolves.not.toThrow();
+
+    const errors = form.querySelectorAll('span.error');
+    expect(errors).toHaveLength(2);
+    expect(errors[0].textContent).toBe('Username required');
+    expect(errors[0].previousElementSibling).toBe(firstInput);
+    expect(errors[1].textContent).toBe('Email required');
+    expect(errors[1].previousElementSibling).toBe(secondInput);
+    expect(firstInput.scrollIntoView).toHaveBeenCalled();
+    expect(secondInput.scrollIntoView).toHaveBeenCalled();
+
+    document.body.removeChild(form);
+  });
+
+  it('inserts a form-level error span at the beginning of the form when the target matches the form name', async () => {
+    const form = document.createElement('form');
+    form.name = 'loginForm';
+    form.scrollIntoView = vi.fn();
+    document.body.appendChild(form);
+
+    const ajaxForm = new AjaxForm(form);
+    await ajaxForm.showErrors([{ field_id: 'loginForm', message: 'Please fix the errors below' }]);
+
+    const error = form.querySelector('span.error');
+    expect(error).toBeTruthy();
+    expect(form.firstElementChild).toBe(error);
+    expect(error?.textContent).toBe('Please fix the errors below');
+    expect(form.scrollIntoView).toHaveBeenCalled();
+
+    document.body.removeChild(form);
+  });
+
   it('inserts a form-level error span at the beginning of the form when the target is the form element', async () => {
     const form = document.createElement('form');
     form.id = 'loginForm';
