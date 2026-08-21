@@ -56,7 +56,7 @@ export class AjaxForm
     }
 
     /**
-     * @deprecated submitCallback property is deprecated and will be removed in the next major release. Use setSubmitCallback() method instead.
+     * @deprecated submitCallback property is deprecated and will be removed in version 2.0.0. Use setSubmitCallback() method instead.
      */
     set submitCallback(clb: (axForm: AjaxForm, formData: FormData) => void)
     {
