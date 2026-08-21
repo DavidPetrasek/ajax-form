@@ -14,7 +14,7 @@ export class AjaxForm
         this.#formEl.ajaxFormInstance = this; // Prevent multiple instances/eventListeners on the same form
     }
 
-    #submit = async (e: SubmitEvent) =>
+    #submit = (e: SubmitEvent) =>
     {
         e.preventDefault();
         if (!this.#isValid())
@@ -30,7 +30,7 @@ export class AjaxForm
             formData.append((e.submitter as HTMLButtonElement).name, 'true');
         }
 
-        await this.#removeErrors();
+        this.#removeErrors();
         this.#submitCallback(this, formData);
     }
 
@@ -65,15 +65,19 @@ export class AjaxForm
 
     /**
      * Inserts a span element containing the error message after the input field, or at the beginning of the form to show form-level errors (field_id is the id or name of the form).
+     * 
+     * @deprecated Asynchronous signature returning Promise<void> is deprecated and will become synchronous (returning void) in version 2.0.0.
      */
     async showErrors(errors: {field_id: string, message: string}[]): Promise<void>
     {
-        await this.#removeErrors();
+        this.#removeErrors();
 
-        errors.forEach((err) =>
+        let isFirstIt = true;
+
+        for (const err of errors)
         {
             // Field inside this form
-            let field_form: Element|null = this.#formEl.querySelector('[id="' + err.field_id + '"]');
+            let field_form: Element | null = this.#formEl.querySelector('[id="' + err.field_id + '"]');
 
             // Field outside this form
             if (!field_form && this.#formEl.id)
@@ -91,12 +95,12 @@ export class AjaxForm
                     if (!field_form)
                     {
                         cErr('AjaxForm :: Field with ID or Form with name/ID "' + err.field_id + '" was not found', null, this.showErrors);
-                        return;
+                        continue;
                     }
                 }
             }
 
-            let el_err = elCreate('span', {class: 'error'}, err.message);
+            const el_err = elCreate('span', {class: 'error'}, err.message);
 
             if (field_form.tagName === 'FORM')
             {
@@ -107,30 +111,36 @@ export class AjaxForm
                 field_form.insertAdjacentElement('afterend', el_err);
             }
 
-            field_form.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
-        });
+            if (isFirstIt)
+            {
+                field_form.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
+                isFirstIt = false;
+            }
+        }
     }
 
-    async #removeErrors(): Promise<void>
+    #removeErrors(): void
     {
-        // Field/s inside this form
-        let errs: Element[] = [...this.#formEl.querySelectorAll('.error')];
+        const errs: Element[] = [...this.#formEl.querySelectorAll('.error')];
 
         // Field/s outside this form
         if (this.#formEl.id)
         {
             const externalFields = document.querySelectorAll(`[form="${this.#formEl.id}"]`);
-            externalFields.forEach((el) =>
+            for (const el of externalFields)
             {
                 const nextEl = el.nextElementSibling;
                 if (nextEl && nextEl.classList.contains('error'))
                 {
                     errs.push(nextEl);
                 }
-            });
+            }
         }
 
-        await Promise.all(errs.map(async (ch) => ch.remove()));
+        for (const ch of errs)
+        {
+            ch.remove();
+        }
     }
 
     #getFormData(): FormData

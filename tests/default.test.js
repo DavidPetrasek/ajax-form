@@ -147,7 +147,7 @@ describe('AjaxForm.showErrors', () =>
         expect(errors).toHaveLength(1);
         expect(errors[0].textContent).toBe('Username required');
         expect(errors[0].previousElementSibling).toBe(input);
-        expect(input.scrollIntoView).toHaveBeenCalled();
+        expect(input.scrollIntoView).toHaveBeenCalledTimes(1);
 
         document.body.removeChild(form);
     });
@@ -172,8 +172,9 @@ describe('AjaxForm.showErrors', () =>
         expect(nextEl.tagName).toBe('SPAN');
         expect(nextEl.classList.contains('error')).toBe(true);
         expect(nextEl.textContent).toBe('External field is required');
-        expect(externalInput.scrollIntoView).toHaveBeenCalled();
+        expect(externalInput.scrollIntoView).toHaveBeenCalledTimes(1);
 
+        // Verify correct removal of errors for external elements
         await ajaxForm.showErrors([]);
         expect(externalInput.nextElementSibling?.classList.contains('error')).toBeFalsy();
 
@@ -181,7 +182,7 @@ describe('AjaxForm.showErrors', () =>
         document.body.removeChild(externalInput);
     });
 
-    it('inserts an error span after multiple matching fields (internal and external) and ignores missing fields', async () => 
+    it('inserts an error span after multiple matching fields (internal and external) and ignores missing fields, scrolling only to the first', async () => 
     {
         const form = document.createElement('form');
         form.id = 'contactForm';
@@ -217,8 +218,9 @@ describe('AjaxForm.showErrors', () =>
         expect(externalError.textContent).toBe('Email required');
         expect(externalError.classList.contains('error')).toBe(true);
 
-        expect(firstInput.scrollIntoView).toHaveBeenCalled();
-        expect(externalInput.scrollIntoView).toHaveBeenCalled();
+        // Only the first field in the error array should trigger scrollIntoView
+        expect(firstInput.scrollIntoView).toHaveBeenCalledTimes(1);
+        expect(externalInput.scrollIntoView).not.toHaveBeenCalled();
 
         document.body.removeChild(form);
         document.body.removeChild(externalInput);
@@ -238,7 +240,7 @@ describe('AjaxForm.showErrors', () =>
         expect(error).toBeTruthy();
         expect(form.firstElementChild).toBe(error);
         expect(error?.textContent).toBe('Please fix the errors below');
-        expect(form.scrollIntoView).toHaveBeenCalled();
+        expect(form.scrollIntoView).toHaveBeenCalledTimes(1);
 
         document.body.removeChild(form);
     });
@@ -257,7 +259,7 @@ describe('AjaxForm.showErrors', () =>
         expect(error).toBeTruthy();
         expect(form.firstElementChild).toBe(error);
         expect(error?.textContent).toBe('Please fix the errors below');
-        expect(form.scrollIntoView).toHaveBeenCalled();
+        expect(form.scrollIntoView).toHaveBeenCalledTimes(1);
 
         document.body.removeChild(form);
     });
