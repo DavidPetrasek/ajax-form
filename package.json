@@ -1,6 +1,6 @@
 {
   "name": "@dpsys/ajax-form",
-  "version": "1.1.12",
+  "version": "1.1.13",
   "description": "A lightweight handler for submitting HTML forms via AJAX",
   "keywords": [
     "form-submitter",
@@ -35,13 +35,13 @@
     "build": "tsup"
   },
   "devDependencies": {
-    "@vitest/ui": "^4.0.16",
-    "jsdom": "^27.4.0",
+    "@vitest/ui": "^4.1.11",
+    "jsdom": "^30.0.1",
     "tsup": "^8.5.1",
-    "typescript": "^5.9.3",
-    "vitest": "^4.0.16"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.11"
   },
   "dependencies": {
-    "@dpsys/js-utils": "^2.1.1"
+    "@dpsys/js-utils": "^2.2.0"
   }
 }

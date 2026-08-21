@@ -1,37 +1,49 @@
-import {cErr, cLog} from '@dpsys/js-utils/misc';
+import {cErr, isEmpty} from '@dpsys/js-utils/misc';
 import {elCreate} from "@dpsys/js-utils/el";
-import { isEmpty } from '@dpsys/js-utils/is';
 
 
 export class AjaxForm
-{				
+{
     #formEl: HTMLFormElement;
     #submitCallback: (axForm: AjaxForm, formData: FormData) => void = () => {};
-    
-	constructor(form: HTMLFormElement)
-	{
-		this.#formEl = form;                 //cLog('AjaxForm :: Initialized', this.#formEl);
-		this.#formEl.addEventListener('submit', this.#submit);
+
+    constructor(form: HTMLFormElement)
+    {
+        this.#formEl = form;
+        this.#formEl.addEventListener('submit', this.#submit);
         this.#formEl.ajaxFormInstance = this; // Prevent multiple instances/eventListeners on the same form
-	}
+    }
 
-	#submit = async (e: SubmitEvent) =>
-	{
-		e.preventDefault();	                //cLog('AjaxForm :: Submit intercepted', this.#submit);
-		if (!this.#isValid()) {return;}
-		var formData = this.#getFormData();	//cLog('AjaxForm :: Form data collected', formData);
-		if (e.submitter && !isEmpty((e.submitter as HTMLButtonElement).name)) {formData.append((e.submitter as HTMLButtonElement).name, 'true');}	// Which button was used to submit	
-		await this.#removeErrors();	
+    #submit = async (e: SubmitEvent) =>
+    {
+        e.preventDefault();
+        if (!this.#isValid())
+        {
+            return;
+        }
 
-		this.#submitCallback(this, formData);
-	}
-	
-	#isValid ()
-	{
-		if ( !this.#formEl.checkValidity() ) {this.#formEl.reportValidity(); return false;}
-	
-		return true;
-	}
+        var formData = this.#getFormData();
+        
+        // Which button was used to submit
+        if (e.submitter && !isEmpty((e.submitter as HTMLButtonElement).name))
+        {
+            formData.append((e.submitter as HTMLButtonElement).name, 'true');
+        }
+
+        await this.#removeErrors();
+        this.#submitCallback(this, formData);
+    }
+
+    #isValid()
+    {
+        if (!this.#formEl.checkValidity())
+        {
+            this.#formEl.reportValidity();
+            return false;
+        }
+
+        return true;
+    }
 
     setSubmitCallback(clb: (axForm: AjaxForm, formData: FormData) => void)
     {
@@ -50,33 +62,42 @@ export class AjaxForm
     {
         this.setSubmitCallback(clb);
     }
-    
-	/**
-	 * Inserts a span element containing the error message after the input field, or at the beginning of the form to show form-level errors (field_id is the id or name of the form).
-	 */
-	async showErrors (errors: {field_id: string, message: string}[]): Promise<void>
-	{								
-		await this.#removeErrors();	
-		
-		errors.forEach( (err) =>
-		{			
-			let field_form = this.#formEl.querySelector('[id="'+err.field_id+'"]');	
-			if (!field_form) 
-			{
-                field_form = document.querySelector('form[id="'+err.field_id+'"]');	
-				if (!field_form) 
+
+    /**
+     * Inserts a span element containing the error message after the input field, or at the beginning of the form to show form-level errors (field_id is the id or name of the form).
+     */
+    async showErrors(errors: {field_id: string, message: string}[]): Promise<void>
+    {
+        await this.#removeErrors();
+
+        errors.forEach((err) =>
+        {
+            // Field inside this form
+            let field_form: Element|null = this.#formEl.querySelector('[id="' + err.field_id + '"]');
+
+            // Field outside this form
+            if (!field_form && this.#formEl.id)
+            {
+                field_form = document.querySelector('[id="' + err.field_id + '"][form="' + this.#formEl.id + '"]');
+            }
+
+            // Form-level error
+            if (!field_form)
+            {
+                field_form = document.querySelector('form[id="' + err.field_id + '"]');
+                if (!field_form)
                 {
-                    field_form = document.querySelector('form[name="'+err.field_id+'"]');	
-                    if (!field_form) 
+                    field_form = document.querySelector('form[name="' + err.field_id + '"]');
+                    if (!field_form)
                     {
-                        cErr('AjaxForm :: Field with ID or Form with name/ID "' + err.field_id +'" was not found', null, this.showErrors);
+                        cErr('AjaxForm :: Field with ID or Form with name/ID "' + err.field_id + '" was not found', null, this.showErrors);
                         return;
                     }
                 }
-			}
-					
-			let el_err = elCreate ('span', {class: 'error'}, err.message);													
-			
+            }
+
+            let el_err = elCreate('span', {class: 'error'}, err.message);
+
             if (field_form.tagName === 'FORM')
             {
                 field_form.insertAdjacentElement('afterbegin', el_err);
@@ -86,35 +107,52 @@ export class AjaxForm
                 field_form.insertAdjacentElement('afterend', el_err);
             }
 
-			field_form.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
-		});
-	}	
-	
-	async #removeErrors(): Promise<void>
-	{
-		let errs = [...this.#formEl.querySelectorAll('.error')];
-		await Promise.all(errs.map(async (ch) => ch.remove()));
-	}	
-	
-	#getFormData(): FormData
-	{					
-		return new FormData(this.#formEl);
-	}
+            field_form.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
+        });
+    }
+
+    async #removeErrors(): Promise<void>
+    {
+        // Field/s inside this form
+        let errs: Element[] = [...this.#formEl.querySelectorAll('.error')];
+
+        // Field/s outside this form
+        if (this.#formEl.id)
+        {
+            const externalFields = document.querySelectorAll(`[form="${this.#formEl.id}"]`);
+            externalFields.forEach((el) =>
+            {
+                const nextEl = el.nextElementSibling;
+                if (nextEl && nextEl.classList.contains('error'))
+                {
+                    errs.push(nextEl);
+                }
+            });
+        }
+
+        await Promise.all(errs.map(async (ch) => ch.remove()));
+    }
+
+    #getFormData(): FormData
+    {
+        return new FormData(this.#formEl);
+    }
 
     getForm(): HTMLFormElement
-	{					
-		return this.#formEl;
-	}
-	
-	reset = (): void =>
-	{
-		this.#formEl.reset();
-	}
+    {
+        return this.#formEl;
+    }
 
-	resetFileInputs = (): void =>
-	{
-		this.#formEl.querySelectorAll('input[type="file"]').forEach((inp) => {(inp as HTMLInputElement).value = '';});
-	}
+    reset = (): void =>
+    {
+        this.#formEl.reset();
+    }
+
+    resetFileInputs = (): void =>
+    {
+        this.#formEl.querySelectorAll('input[type="file"]').forEach((inp) =>
+        {
+            (inp as HTMLInputElement).value = '';
+        });
+    }
 }
-
-

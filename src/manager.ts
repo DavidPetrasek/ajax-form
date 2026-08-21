@@ -1,5 +1,5 @@
 import {AjaxForm} from './AjaxForm.js';
-import {isString} from '@dpsys/js-utils/is';
+import {isString} from '@dpsys/js-utils/str';
 
 
 /** 
