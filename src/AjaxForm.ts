@@ -56,7 +56,7 @@ export class AjaxForm
     }
 
     /**
-     * @deprecated submitCallback property is deprecated and will be removed in version 2.0.0. Use setSubmitCallback() method instead.
+     * @deprecated submitCallback property will be removed in v2.0.0. Use setSubmitCallback() method instead.
      */
     set submitCallback(clb: (axForm: AjaxForm, formData: FormData) => void)
     {
@@ -66,7 +66,7 @@ export class AjaxForm
     /**
      * Inserts a span element containing the error message after the input field, or at the beginning of the form to show form-level errors (field_id is the id or name of the form).
      * 
-     * @deprecated Asynchronous signature returning Promise<void> is deprecated and will become synchronous (returning void) in version 2.0.0.
+     * @deprecated Asynchronous signature returning Promise<void> will become synchronous (returning void) in v2.0.0.
      */
     async showErrors(errors: {field_id: string, message: string}[]): Promise<void>
     {
